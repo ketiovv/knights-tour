@@ -15,6 +15,41 @@ namespace KnightsTour
             {
                 Console.WriteLine(move);
             }
+            Console.WriteLine($"Visited squares: ");
+            foreach (var s in knight.SquaresVisited)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine();
+
+            knight.ActualSquare = knight.PossibleMoves[0];
+            Console.WriteLine($"Actual position: {knight.ActualSquare}");
+            Console.WriteLine($"Possible moves: ");
+            foreach (var move in knight.PossibleMoves)
+            {
+                Console.WriteLine(move);
+            }
+            Console.WriteLine($"Visited squares: ");
+            foreach (var s in knight.SquaresVisited)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine();
+
+            knight.ActualSquare = knight.PossibleMoves[0];
+            Console.WriteLine($"Actual position: {knight.ActualSquare}");
+            Console.WriteLine($"Possible moves: ");
+            foreach (var move in knight.PossibleMoves)
+            {
+                Console.WriteLine(move);
+            }
+            Console.WriteLine($"Visited squares: ");
+            foreach (var s in knight.SquaresVisited)
+            {
+                Console.WriteLine(s);
+            }
 
         }
     }
