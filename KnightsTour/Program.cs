@@ -6,51 +6,47 @@ namespace KnightsTour
     {
         static void Main(string[] args)
         {
-            var chessboard = new Chessboard(8);
-            var knight = new Knight(4, 4, chessboard.Size);
+            FindKnightsTourByBruteForce(8, 4, 4);
+        }
 
-            Console.WriteLine($"Actual position: {knight.ActualSquare}");
-            Console.WriteLine($"Possible moves: ");
-            foreach (var move in knight.PossibleMoves)
-            {
-                Console.WriteLine(move);
-            }
-            Console.WriteLine($"Visited squares: ");
-            foreach (var s in knight.SquaresVisited)
-            {
-                Console.WriteLine(s);
-            }
+        private static void FindKnightsTourByBruteForce(int chessboardSize, int startingX, int startingY)
+        {
+            var rnd = new Random();
+            var chessboard = new Chessboard(chessboardSize);
+            var allSquaresVisited = false;
 
-            Console.WriteLine();
-
-            knight.ActualSquare = knight.PossibleMoves[0];
-            Console.WriteLine($"Actual position: {knight.ActualSquare}");
-            Console.WriteLine($"Possible moves: ");
-            foreach (var move in knight.PossibleMoves)
+            while (!allSquaresVisited)
             {
-                Console.WriteLine(move);
-            }
-            Console.WriteLine($"Visited squares: ");
-            foreach (var s in knight.SquaresVisited)
-            {
-                Console.WriteLine(s);
-            }
+                var knight = new Knight(startingX, startingY, chessboard.Size);
+                while (knight.PossibleMoves.Count != 0)
+                {
+                    knight.ActualSquare = knight.PossibleMoves[rnd.Next(0, knight.PossibleMoves.Count - 1)];
+                }
+                Console.WriteLine($"Visited squares count: {knight.SquaresVisited.Count}");
 
-            Console.WriteLine();
+                if (knight.SquaresVisited.Count == 64)
+                {
+                    allSquaresVisited = true;
 
-            knight.ActualSquare = knight.PossibleMoves[0];
-            Console.WriteLine($"Actual position: {knight.ActualSquare}");
-            Console.WriteLine($"Possible moves: ");
-            foreach (var move in knight.PossibleMoves)
-            {
-                Console.WriteLine(move);
-            }
-            Console.WriteLine($"Visited squares: ");
-            foreach (var s in knight.SquaresVisited)
-            {
-                Console.WriteLine(s);
-            }
+                    Console.WriteLine("----");
 
+                    Console.WriteLine($"Actual position: {knight.ActualSquare}");
+
+                    Console.WriteLine($"Possible moves: ");
+                    foreach (var move in knight.PossibleMoves)
+                    {
+                        Console.WriteLine(move);
+                    }
+
+                    Console.WriteLine($"Visited squares: ");
+                    for (var i = 0; i < knight.SquaresVisited.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {knight.SquaresVisited[i]}");
+                    }
+
+                    Console.WriteLine("----");
+                }
+            }
         }
     }
 }
