@@ -7,8 +7,20 @@ namespace KnightsTour
 {
     public class Knight
     {
-        public Square ActualSquare { get; set; }
-        public List<Square> PossibleMoves { get; set; } = new List<Square>();
+        private Square _actualSquare;
+
+        public Square ActualSquare
+        {
+            get => _actualSquare;
+            set
+            {
+                SquaresVisited.Add(_actualSquare);
+                _actualSquare = value;
+                PossibleMoves = GeneratePossibleMoves(_actualSquare, 8);
+            }
+        }
+
+        public List<Square> PossibleMoves { get; set; }
         public List<Square> SquaresVisited { get; set; } = new List<Square>();
 
         public Knight(int startingX, int startingY, int chessboardSize)
@@ -36,14 +48,14 @@ namespace KnightsTour
             var impossibleMoves =
                 possibleMoves.Where(square =>
                                         square.X < 0 || square.X > chessboardSize ||
-                                        square.Y < 0 || square.Y > chessboardSize).ToList();
+                                        square.Y < 0 || square.Y > chessboardSize ||
+                                        SquaresVisited.Contains(square)).ToList();
 
 
             foreach (var square in impossibleMoves)
             {
                 possibleMoves.Remove(square);
             }
-
 
             return possibleMoves;
         }
