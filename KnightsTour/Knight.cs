@@ -19,6 +19,7 @@ namespace KnightsTour
                     SquaresVisited.Add(_actualSquare);
                 }
                 _actualSquare = value;
+                //TODO: refactor this for flexibility with size
                 PossibleMoves = GeneratePossibleMoves(_actualSquare, 8);
             }
         }
@@ -61,6 +62,19 @@ namespace KnightsTour
             }
 
             return possibleMoves;
+        }
+
+        public void PrintPath()
+        {
+            Console.WriteLine("----");
+            Console.WriteLine($"Path of knight: ");
+
+            for (var i = 0; i < SquaresVisited.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {SquaresVisited[i]}");
+            }
+
+            Console.WriteLine("----");
         }
     }
 }
