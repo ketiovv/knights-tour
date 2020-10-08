@@ -14,7 +14,10 @@ namespace KnightsTour
             get => _actualSquare;
             set
             {
-                SquaresVisited.Add(_actualSquare);
+                if (_actualSquare != null)
+                {
+                    SquaresVisited.Add(_actualSquare);
+                }
                 _actualSquare = value;
                 PossibleMoves = GeneratePossibleMoves(_actualSquare, 8);
             }
