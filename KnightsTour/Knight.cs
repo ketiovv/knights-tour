@@ -51,8 +51,8 @@ namespace KnightsTour
             };
             var impossibleMoves =
                 possibleMoves.Where(square =>
-                                        square.X < 0 || square.X > chessboardSize ||
-                                        square.Y < 0 || square.Y > chessboardSize ||
+                                        square.X < 0 || square.X > chessboardSize - 1 ||
+                                        square.Y < 0 || square.Y > chessboardSize - 1 ||
                                         SquaresVisited.Contains(square)).ToList();
 
 

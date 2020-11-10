@@ -6,7 +6,21 @@ namespace KnightsTour
     {
         static void Main(string[] args)
         {
-            FindKnightsTourByBruteForce(8, 4, 4);
+            var rnd = new Random();
+            var chessboard = new Chessboard(8);
+            var knight = new Knight(4, 4, chessboard.Size);
+
+            do
+            {
+                foreach (var moves in knight.PossibleMoves)
+                {
+                    Console.WriteLine($"{moves}");
+                }
+
+                knight.ActualSquare = knight.PossibleMoves[rnd.Next(0, knight.PossibleMoves.Count - 1)];
+                chessboard.PrintChessboardWithKnightPath(knight);
+            } while (knight.PossibleMoves.Count != 0);
+            knight.PrintPath();
         }
 
         private static void FindKnightsTourByBruteForce(int chessboardSize, int startingX, int startingY)
@@ -24,10 +38,11 @@ namespace KnightsTour
                 }
                 Console.WriteLine($"Visited squares count: {knight.SquaresVisited.Count}");
 
-                if (knight.SquaresVisited.Count == 64)
+                if (knight.SquaresVisited.Count == chessboardSize * chessboardSize)
                 {
                     allSquaresVisited = true;
                     knight.PrintPath();
+                    chessboard.PrintChessboardWithKnightPath(knight);
                 }
             }
         }
