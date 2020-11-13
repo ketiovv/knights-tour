@@ -20,20 +20,24 @@ namespace KnightsTour
                 }
                 _actualSquare = value;
                 //TODO: refactor this for flexibility with size
-                PossibleMoves = GeneratePossibleMoves(_actualSquare, 8);
+                PossibleMoves = GeneratePossibleMoves(_actualSquare);
             }
         }
 
         public List<Square> PossibleMoves { get; set; }
         public List<Square> SquaresVisited { get; set; } = new List<Square>();
+        public int ChessboardSize { get; set; }
+
+
 
         public Knight(int startingX, int startingY, int chessboardSize)
         {
+            ChessboardSize = chessboardSize;
             ActualSquare = new Square(startingX, startingY);
-            PossibleMoves = GeneratePossibleMoves(ActualSquare, chessboardSize);
+            PossibleMoves = GeneratePossibleMoves(ActualSquare);
         }
 
-        public List<Square> GeneratePossibleMoves(Square actualSquare, int chessboardSize)
+        public List<Square> GeneratePossibleMoves(Square actualSquare)
         {
             var possibleMoves = new List<Square>
             {
@@ -51,8 +55,8 @@ namespace KnightsTour
             };
             var impossibleMoves =
                 possibleMoves.Where(square =>
-                                        square.X < 0 || square.X > chessboardSize - 1 ||
-                                        square.Y < 0 || square.Y > chessboardSize - 1 ||
+                                        square.X < 0 || square.X > ChessboardSize - 1 ||
+                                        square.Y < 0 || square.Y > ChessboardSize - 1 ||
                                         SquaresVisited.Contains(square)).ToList();
 
 
